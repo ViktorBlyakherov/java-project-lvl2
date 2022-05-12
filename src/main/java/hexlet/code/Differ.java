@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class Differ {
     private class KeyDifference {
-        String keyValue = "";
-        boolean isInFirstFile = false;
-        boolean isInSecondFile = false;
-        String firstValue = "";
-        String secondValue = "";
+        private String keyValue = "";
+        private boolean isInFirstFile = false;
+        private boolean isInSecondFile = false;
+        private String firstValue = "";
+        private String secondValue = "";
 
         @Override
         public String toString() {
@@ -33,7 +33,7 @@ public class Differ {
 
 
 
-    public String generate(Map<String, String> firstMap, Map<String, String> secondMap) {
+    public final String generate(Map<String, String> firstMap, Map<String, String> secondMap) {
         List<KeyDifference> resultList = new ArrayList<>();
 
         for (String key : firstMap.keySet()) {
@@ -58,7 +58,7 @@ public class Differ {
             }
         }
 
-        resultList.sort((v1,v2) -> v1.keyValue.compareTo(v2.keyValue));
+        resultList.sort((v1, v2) -> v1.keyValue.compareTo(v2.keyValue));
         String resultString = "{\n";
         for (KeyDifference diff : resultList) {
             resultString = resultString + diff.toString();
