@@ -18,9 +18,6 @@ run:
 test:
 	./gradlew test
 
-report:
-	./gradlew jacocoTestReport
-
 lint:
 	./gradlew checkstyleMain checkstyleTest
 
@@ -28,7 +25,8 @@ update-deps:
 	./gradlew useLatestVersions
 
 report:
-   ./gradlew jacocoTestReport
+	./gradlew jacocoTestReport
+
 
 build-run: build run
 
