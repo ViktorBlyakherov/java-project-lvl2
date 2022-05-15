@@ -1,11 +1,6 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,19 +36,21 @@ public class Differ {
 
 
     public final String generate(String filepath1, String filepath2) throws IOException {
-        String fileFirstJson = Files.readString(Paths.get(filepath1));
-        String fileSecondJson = Files.readString(Paths.get(filepath2));
-        ObjectMapper mapper = new ObjectMapper();
         Map<String, String> firstMap = new HashMap<>();
         Map<String, String> secondMap = new HashMap<>();
+        String formatFiles = "";
 
-        if (!fileFirstJson.isBlank()) {
-            firstMap = mapper.readValue(fileFirstJson, new TypeReference<Map<String, String>>() { });
+        if (filepath1.endsWith(".json") && filepath2.endsWith(".json")) {
+            formatFiles = "json";
+        } else if (filepath1.endsWith(".yml") && filepath2.endsWith(".yml")) {
+            formatFiles = "yml";
+        } else {
+            System.out.println("Unknown format!");
+            return "";
         }
 
-        if (!fileSecondJson.isBlank()) {
-            secondMap = mapper.readValue(fileSecondJson, new TypeReference<Map<String, String>>() { });
-        }
+        firstMap = Parser.parseFiles(filepath1, formatFiles);
+        secondMap = Parser.parseFiles(filepath2, formatFiles);
 
         List<KeyDifference> resultList = new ArrayList<>();
 
