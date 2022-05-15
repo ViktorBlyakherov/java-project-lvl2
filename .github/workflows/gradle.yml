@@ -1,30 +1,23 @@
-
-name: Java CI
-
-on:
-  - push
-  - pull_request
-
+name: Build
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK 17
+      - name: Set up openJDK
         uses: actions/setup-java@v2
         with:
-          java-version: '17'
           distribution: 'temurin'
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
+          java-version: '17'
+      - run: ./gradlew checkstyleMain
+      - run: ./gradlew test
+      - run: ./gradlew clean build
+      - name: Publish code coverage
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+          JACOCO_SOURCE_PATH: src/main/java
         with:
-          arguments: build
-       - name: Publish code coverage
-         uses: paambaati/codeclimate-action@v3.0.0
-         env:
-           CC_TEST_REPORTER_ID: c226d73480a71a03ddc11cd0cac6e5510a1d37714ac20c0d2639c177e3b77628
-           JACOCO_SOURCE_PATH: src/main/java
-         with:
-           coverageCommand: make build
-           coverageLocations: ${{github.workspace}}/build/jacocoHtml/index.html:jacoco
+          coverageCommand: make report
+          coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco

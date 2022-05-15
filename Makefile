@@ -27,6 +27,8 @@ lint:
 update-deps:
 	./gradlew useLatestVersions
 
+report:
+   ./gradlew jacocoTestReport
 
 build-run: build run
 
