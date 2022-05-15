@@ -11,23 +11,33 @@ public class Differ {
         private String keyValue = "";
         private boolean isInFirstFile = false;
         private boolean isInSecondFile = false;
-        private String firstValue = "";
-        private String secondValue = "";
+        private Object firstValue = "";
+        private Object secondValue = "";
 
         @Override
         public String toString() {
             String resultString = "";
             if (isInFirstFile && isInSecondFile) {
-                if (!firstValue.equals(secondValue)) {
-                    resultString = resultString + "- " + keyValue + ": " + firstValue + "\n";
-                    resultString = resultString + "+ " + keyValue + ": " + secondValue + "\n";
+                if (firstValue == null && secondValue == null) {
+                    resultString = resultString + "    " + keyValue + ": null" + "\n";
+                } else if (firstValue == null && secondValue != null) {
+                    resultString = resultString + "  - " + keyValue + ": null" + "\n";
+                    resultString = resultString + "  + " + keyValue + ": " + secondValue.toString() + "\n";
+                } else if (firstValue != null && secondValue == null) {
+                    resultString = resultString + "  - " + keyValue + ": " + firstValue.toString() + "\n";
+                    resultString = resultString + "  + " + keyValue + ": null" + "\n";
+                } else if ((firstValue != null && secondValue != null) && (!firstValue.equals(secondValue))) {
+                    resultString = resultString + "  - " + keyValue + ": " + firstValue.toString() + "\n";
+                    resultString = resultString + "  + " + keyValue + ": " + secondValue.toString() + "\n";
                 } else {
-                    resultString = resultString + "  " + keyValue + ": " + firstValue + "\n";
+                    resultString = resultString + "    " + keyValue + ": " + firstValue.toString() + "\n";
                 }
             } else if (isInFirstFile && !isInSecondFile) {
-                resultString = resultString + "- " + keyValue + ": " + firstValue + "\n";
+                String resValue = firstValue == null ? "null" : firstValue.toString();
+                resultString = resultString + "  - " + keyValue + ": " + resValue + "\n";
             } else if (isInSecondFile && !isInFirstFile) {
-                resultString = resultString + "+ " + keyValue + ": " + secondValue + "\n";
+                String resValue = secondValue == null ? "null" : secondValue.toString();
+                resultString = resultString + "  + " + keyValue + ": " + resValue + "\n";
             }
             return resultString;
         }
@@ -36,8 +46,8 @@ public class Differ {
 
 
     public final String generate(String filepath1, String filepath2) throws IOException {
-        Map<String, String> firstMap = new HashMap<>();
-        Map<String, String> secondMap = new HashMap<>();
+        Map<String, Object> firstMap = new HashMap<>();
+        Map<String, Object> secondMap = new HashMap<>();
         String formatFiles = "";
 
         if (filepath1.endsWith(".json") && filepath2.endsWith(".json")) {

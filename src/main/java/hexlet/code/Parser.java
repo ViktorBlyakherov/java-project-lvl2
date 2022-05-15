@@ -15,7 +15,7 @@ public class Parser {
     Return true on successful parsing and
     Return false if file extension is not valid
      */
-    public static Map<String, String> parseFiles(String filePath, String formatFile) throws IOException {
+    public static Map<String, Object> parseFiles(String filePath, String formatFile) throws IOException {
 
         ObjectMapper mapper;
 
@@ -24,14 +24,14 @@ public class Parser {
         } else if (formatFile.equals("yml")) {
             mapper = new ObjectMapper(new YAMLFactory());
         } else {
-            return new HashMap<String, String>();
+            return new HashMap<String, Object>();
         }
         String fileData = Files.readString(Paths.get(filePath));
 
         if (!fileData.isBlank()) {
-            return mapper.readValue(fileData, new TypeReference<Map<String, String>>() { });
+            return mapper.readValue(fileData, new TypeReference<Map<String, Object>>() { });
         } else {
-            return new HashMap<String, String>();
+            return new HashMap<String, Object>();
         }
     }
 }
