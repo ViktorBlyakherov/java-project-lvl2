@@ -1,40 +1,9 @@
 package hexlet.code;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Differ {
-    public static class KeyDifference {
-        private String keyValue = "";
-        private boolean isInFirstFile = false;
-        private boolean isInSecondFile = false;
-        private Object firstValue = "";
-        private Object secondValue = "";
-
-        public final String getKeyValue() {
-            return keyValue;
-        }
-
-        public final boolean isInFirstFile() {
-            return isInFirstFile;
-        }
-
-        public final boolean isInSecondFile() {
-            return isInSecondFile;
-        }
-
-        public final Object getFirstValue() {
-            return firstValue;
-        }
-
-        public final Object getSecondValue() {
-            return secondValue;
-        }
-    }
-
-
 
     public static String generate(String filepath1, String filepath2, String outputFormat) throws IOException {
         Map<String, Object> firstMap;
@@ -53,31 +22,49 @@ public class Differ {
         firstMap = Parser.parseFiles(filepath1, formatFiles);
         secondMap = Parser.parseFiles(filepath2, formatFiles);
 
-        List<KeyDifference> resultList = new ArrayList<>();
+        List<Map<String, Object>> resultList = new ArrayList<>();
 
         for (String key : firstMap.keySet()) {
-            KeyDifference tempObj = new KeyDifference();
-            tempObj.keyValue = key;
-            tempObj.isInFirstFile = true;
-            tempObj.firstValue = firstMap.get(key);
+            Map<String, Object> tmpMap = new LinkedHashMap<>();
+            tmpMap.put("key", key);
+
             if (secondMap.containsKey(key)) {
-                tempObj.isInSecondFile = true;
-                tempObj.secondValue = secondMap.get(key);
+                if (firstMap.get(key) == null) {
+                    if (secondMap.get(key) == null) {
+                        tmpMap.put("type", "unchanged");
+                        tmpMap.put("value", firstMap.get(key));
+                    } else {
+                        tmpMap.put("type", "changed");
+                        tmpMap.put("value1", firstMap.get(key));
+                        tmpMap.put("value2", secondMap.get(key));
+                    }
+                } else if (firstMap.get(key).equals(secondMap.get(key))) {
+                    tmpMap.put("type", "unchanged");
+                    tmpMap.put("value", firstMap.get(key));
+                } else {
+                    tmpMap.put("type", "changed");
+                    tmpMap.put("value1", firstMap.get(key));
+                    tmpMap.put("value2", secondMap.get(key));
+                }
+            } else {
+                tmpMap.put("type", "deleted");
+                tmpMap.put("value", firstMap.get(key));
             }
-            resultList.add(tempObj);
+
+            resultList.add(tmpMap);
         }
 
         for (String key : secondMap.keySet()) {
             if (!firstMap.containsKey(key)) {
-                KeyDifference tempObj = new KeyDifference();
-                tempObj.keyValue = key;
-                tempObj.isInSecondFile = true;
-                tempObj.secondValue = secondMap.get(key);
-                resultList.add(tempObj);
+                Map<String, Object> tmpMap = new LinkedHashMap<>();
+                tmpMap.put("key", key);
+                tmpMap.put("type", "added");
+                tmpMap.put("value", secondMap.get(key));
+                resultList.add(tmpMap);
             }
         }
 
-        resultList.sort((v1, v2) -> v1.keyValue.compareTo(v2.keyValue));
+        resultList.sort((v1, v2) -> v1.get("key").toString().compareTo((v2.get("key").toString())));
 
         return Formatter.formatResult(resultList, outputFormat);
     }
