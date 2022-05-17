@@ -76,46 +76,46 @@ public final class TestDiffer {
     @Test
     public void testEmptyFiles() throws IOException {
         assertEquals(new Differ().generate("./src/test/resources/empty1.json",
-                "./src/test/resources/empty2.json"), "{\n}");
+                "./src/test/resources/empty2.json", "stylish"), "{\n}");
 
         assertEquals(new Differ().generate("./src/test/resources/empty1.yml",
-                "./src/test/resources/empty2.yml"), "{\n}");
+                "./src/test/resources/empty2.yml", "stylish"), "{\n}");
     }
 
     @Test
     public void testNormalJson() throws IOException {
         assertEquals(new Differ().generate("./src/test/resources/normal1.json",
-                "./src/test/resources/normal2.json"), expectedNormal);
+                "./src/test/resources/normal2.json", "stylish"), expectedNormal);
     }
 
     @Test
     public void testFirstEmptyJson() throws IOException {
         assertEquals(new Differ().generate("./src/test/resources/empty1.json",
-                "./src/test/resources/normal2.json"), expectedFirstEmpty);
+                "./src/test/resources/normal2.json", "stylish"), expectedFirstEmpty);
     }
 
     @Test
     public void testSecondEmptyJson() throws IOException {
         assertEquals(new Differ().generate("./src/test/resources/normal1.json",
-                "./src/test/resources/empty2.json"), expectedSecondEmpty);
+                "./src/test/resources/empty2.json", "stylish"), expectedSecondEmpty);
     }
 
     @Test
     public void testNormalYml() throws IOException {
         assertEquals(new Differ().generate("./src/test/resources/normal1.yml",
-                "./src/test/resources/normal2.yml"), expectedNormal);
+                "./src/test/resources/normal2.yml", "stylish"), expectedNormal);
     }
 
     @Test
     public void testFirstEmptyYml() throws IOException {
         assertEquals(new Differ().generate("./src/test/resources/empty1.yml",
-                "./src/test/resources/normal2.yml"), expectedFirstEmpty);
+                "./src/test/resources/normal2.yml", "stylish"), expectedFirstEmpty);
     }
 
     @Test
     public void testSecondEmptyYml() throws IOException {
         assertEquals(new Differ().generate("./src/test/resources/normal1.yml",
-                "./src/test/resources/empty2.yml"), expectedSecondEmpty);
+                "./src/test/resources/empty2.yml", "stylish"), expectedSecondEmpty);
     }
 
 }

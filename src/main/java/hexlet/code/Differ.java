@@ -2,53 +2,44 @@ package hexlet.code;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Differ {
-    private class KeyDifference {
+    public static class KeyDifference {
         private String keyValue = "";
         private boolean isInFirstFile = false;
         private boolean isInSecondFile = false;
         private Object firstValue = "";
         private Object secondValue = "";
 
-        @Override
-        public String toString() {
-            String resultString = "";
-            if (isInFirstFile && isInSecondFile) {
-                if (firstValue == null && secondValue == null) {
-                    resultString = resultString + "    " + keyValue + ": null" + "\n";
-                } else if (firstValue == null && secondValue != null) {
-                    resultString = resultString + "  - " + keyValue + ": null" + "\n";
-                    resultString = resultString + "  + " + keyValue + ": " + secondValue.toString() + "\n";
-                } else if (firstValue != null && secondValue == null) {
-                    resultString = resultString + "  - " + keyValue + ": " + firstValue.toString() + "\n";
-                    resultString = resultString + "  + " + keyValue + ": null" + "\n";
-                } else if ((firstValue != null && secondValue != null) && (!firstValue.equals(secondValue))) {
-                    resultString = resultString + "  - " + keyValue + ": " + firstValue.toString() + "\n";
-                    resultString = resultString + "  + " + keyValue + ": " + secondValue.toString() + "\n";
-                } else {
-                    resultString = resultString + "    " + keyValue + ": " + firstValue.toString() + "\n";
-                }
-            } else if (isInFirstFile && !isInSecondFile) {
-                String resValue = firstValue == null ? "null" : firstValue.toString();
-                resultString = resultString + "  - " + keyValue + ": " + resValue + "\n";
-            } else if (isInSecondFile && !isInFirstFile) {
-                String resValue = secondValue == null ? "null" : secondValue.toString();
-                resultString = resultString + "  + " + keyValue + ": " + resValue + "\n";
-            }
-            return resultString;
+        public final String getKeyValue() {
+            return keyValue;
+        }
+
+        public final boolean isInFirstFile() {
+            return isInFirstFile;
+        }
+
+        public final boolean isInSecondFile() {
+            return isInSecondFile;
+        }
+
+        public final Object getFirstValue() {
+            return firstValue;
+        }
+
+        public final Object getSecondValue() {
+            return secondValue;
         }
     }
 
 
 
-    public final String generate(String filepath1, String filepath2) throws IOException {
-        Map<String, Object> firstMap = new HashMap<>();
-        Map<String, Object> secondMap = new HashMap<>();
-        String formatFiles = "";
+    public static String generate(String filepath1, String filepath2, String outputFormat) throws IOException {
+        Map<String, Object> firstMap;
+        Map<String, Object> secondMap;
+        String formatFiles;
 
         if (filepath1.endsWith(".json") && filepath2.endsWith(".json")) {
             formatFiles = "json";
@@ -87,12 +78,7 @@ public class Differ {
         }
 
         resultList.sort((v1, v2) -> v1.keyValue.compareTo(v2.keyValue));
-        String resultString = "{\n";
-        for (KeyDifference diff : resultList) {
-            resultString = resultString + diff.toString();
-        }
-        resultString = resultString + "}";
 
-        return resultString;
+        return Formatter.formatResult(resultList, outputFormat);
     }
 }
