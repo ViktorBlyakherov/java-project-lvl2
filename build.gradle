@@ -53,10 +53,14 @@ dependencies {
 
 }
 
+group = 'hexlet.code'
+version = '1.0-SNAPSHOT'
+
 application {
     // Define the main class for the application.
     mainClass = 'hexlet.code.App'
 }
+
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
