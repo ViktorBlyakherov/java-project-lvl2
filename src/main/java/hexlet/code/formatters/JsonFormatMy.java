@@ -11,11 +11,10 @@ public class JsonFormatMy {
 
         ObjectMapper mapper = new ObjectMapper();
         String resultString = "";
-        for (int i = 0; i < resultList.size(); i++) {
-            Map<String, Object> tmpMap = resultList.get(i);
+        for (Map<String, Object> tmpMap : resultList) {
             resultString = resultString + mapper.writeValueAsString(tmpMap) + "\n";
 
         }
-        return resultString;
+        return resultString.length() > 0 ? resultString.substring(0, resultString.length() - 1) : "";
     }
 }

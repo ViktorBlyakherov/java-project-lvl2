@@ -9,8 +9,6 @@ public class PlainFormat {
         for (int i = 0; i < resultList.size(); i++) {
 
             Map<String, Object> tmpMap = resultList.get(i);
-            String firstValue;
-            String secondValue;
 
             if (tmpMap.get("type").equals("changed")) {
                 String value1;
@@ -55,6 +53,6 @@ public class PlainFormat {
             }
         }
 
-        return resultString.substring(0, resultString.length() - 1);
+        return resultString.length() > 0 ? resultString.substring(0, resultString.length() - 1) : "";
     }
 }
