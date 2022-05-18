@@ -16,7 +16,7 @@ import java.util.concurrent.Callable;
         headerHeading = "Demonstration Usage:%n%n")
 
 public class App implements Callable<Integer> {
-    @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit.")
+    @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit")
     private boolean usageHelpRequested;
     @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
     private boolean versionHelpRequested;
