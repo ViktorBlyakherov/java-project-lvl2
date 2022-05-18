@@ -55,6 +55,6 @@ public class PlainFormat {
             }
         }
 
-        return resultString;
+        return resultString.substring(0, resultString.length() - 1);
     }
 }
