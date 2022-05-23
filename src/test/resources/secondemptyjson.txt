@@ -1,0 +1,12 @@
+{"key":"chars1","type":"deleted","value":["a","b","c"]}
+{"key":"chars2","type":"deleted","value":["d","e","f"]}
+{"key":"checked","type":"deleted","value":false}
+{"key":"default","type":"deleted","value":null}
+{"key":"id","type":"deleted","value":45}
+{"key":"key1","type":"deleted","value":"value1"}
+{"key":"numbers1","type":"deleted","value":[1,2,3,4]}
+{"key":"numbers2","type":"deleted","value":[2,3,4,5]}
+{"key":"numbers3","type":"deleted","value":[3,4,5]}
+{"key":"setting1","type":"deleted","value":"Some value"}
+{"key":"setting2","type":"deleted","value":200}
+{"key":"setting3","type":"deleted","value":true}

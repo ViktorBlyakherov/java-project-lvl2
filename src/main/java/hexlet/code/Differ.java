@@ -13,23 +13,20 @@ public class Differ {
         return generate(filepath1, filepath2, "stylish");
     }
 
-    public static String generate(String filepath1, String filepath2, String outputFormat) throws IOException {
-        Map<String, Object> firstMap;
-        Map<String, Object> secondMap;
-        String formatFiles;
+    private static String getFileFormat(String filepath1, String filepath2) {
 
         if (filepath1.endsWith(".json") && filepath2.endsWith(".json")) {
-            formatFiles = "json";
+            return "json";
         } else if (filepath1.endsWith(".yml") && filepath2.endsWith(".yml")) {
-            formatFiles = "yml";
+            return "yml";
         } else {
-            System.out.println("Unknown format!");
-            return "";
+            return "Unknown format";
+
         }
 
-        firstMap = Parser.parseFiles(filepath1, formatFiles);
-        secondMap = Parser.parseFiles(filepath2, formatFiles);
+    }
 
+    public static List<Map<String, Object>> getDifference(Map<String, Object> firstMap, Map<String, Object> secondMap) {
         List<Map<String, Object>> resultList = new ArrayList<>();
 
         for (String key : firstMap.keySet()) {
@@ -73,7 +70,24 @@ public class Differ {
         }
 
         resultList.sort((v1, v2) -> v1.get("key").toString().compareTo((v2.get("key").toString())));
+        return resultList;
+    }
 
-        return Formatter.formatResult(resultList, outputFormat);
+    public static String generate(String filepath1, String filepath2, String outputFormat) throws IOException {
+        Map<String, Object> firstMap;
+        Map<String, Object> secondMap;
+        String formatFiles;
+
+        formatFiles = getFileFormat(filepath1, filepath2);
+
+        if (formatFiles.equals("Unknown format")) {
+            System.out.println(formatFiles);
+            return "";
+        }
+
+        firstMap = Parser.parseFiles(filepath1, formatFiles);
+        secondMap = Parser.parseFiles(filepath2, formatFiles);
+
+        return Formatter.formatResult(getDifference(firstMap, secondMap), outputFormat);
     }
 }

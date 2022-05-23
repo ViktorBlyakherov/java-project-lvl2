@@ -17,10 +17,13 @@ import java.util.concurrent.Callable;
 
 public class App implements Callable<Integer> {
     @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit")
-    private boolean usageHelpRequested;
-    @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
-    private boolean versionHelpRequested;
+    private boolean isHelpRequested;
 
+    @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
+    private boolean isVersionRequested;
+/*
+  Эти две переменные удалить нельзя. Picocli требует, чтобы каждая опция присваивалась какой-то переменной.
+*/
     @Option(names = {"-f", "--format"}, defaultValue = "stylish", description = "output format [default: stylish]")
     private String format;
 
@@ -32,9 +35,6 @@ public class App implements Callable<Integer> {
             description = "path to second file")
     private String filepath2;
 
-    public static String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) throws Exception {
         int exitCode = new CommandLine(new App()).execute(args);
