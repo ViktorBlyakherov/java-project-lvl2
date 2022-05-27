@@ -43,7 +43,7 @@ public class Parser {
         } else if (formatFile.equals("yml")) {
             return parseYaml(filePath);
         } else {
-            return new HashMap<>();
+            throw new Error("Invalid format");
         }
     }
 }

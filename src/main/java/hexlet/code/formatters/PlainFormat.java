@@ -15,6 +15,18 @@ public class PlainFormat {
 
     public static String formatOutput(List<Map<String, Object>> resultList) {
         String resultString = "";
+
+        /*
+        Ты пишешь:
+        Попробуем убрать все if-else выражения из структуры switch. Например, до написания switch можно получать
+        значения из мапы и обрабатывать их:
+
+        String formattedValue1 = stringify(tmpMap.get("value1") );
+
+        Никак не могу взять в толк твою мысль. Я до начала if не знаю какие мне значения получать, value, или value1 и
+        value2. Можешь подробнее написать?
+         */
+
         for (Map<String, Object> tmpMap : resultList) {
 
             switch (tmpMap.get("type").toString()) {

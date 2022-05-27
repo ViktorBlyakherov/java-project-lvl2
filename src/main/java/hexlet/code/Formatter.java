@@ -19,7 +19,7 @@ public class Formatter {
             case "json":
                 return JsonFormat.formatOutput(resultList);
             default:
-                return "Unknown format!";
+                throw new Error("Unknown format!");
         }
     }
 }

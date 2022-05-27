@@ -1,13 +1,1 @@
-{"key":"chars1","type":"added","value":["a","b","c"]}
-{"key":"chars2","type":"added","value":false}
-{"key":"checked","type":"added","value":true}
-{"key":"default","type":"added","value":["value1","value2"]}
-{"key":"id","type":"added","value":null}
-{"key":"key2","type":"added","value":"value2"}
-{"key":"numbers1","type":"added","value":[1,2,3,4]}
-{"key":"numbers2","type":"added","value":[22,33,44,55]}
-{"key":"numbers4","type":"added","value":[4,5,6]}
-{"key":"obj1","type":"added","value":{"nestedKey":"value","isNested":true}}
-{"key":"setting1","type":"added","value":"Another value"}
-{"key":"setting2","type":"added","value":300}
-{"key":"setting3","type":"added","value":"none"}
+[{"key":"chars1","type":"added","value":["a","b","c"]},{"key":"chars2","type":"added","value":false},{"key":"checked","type":"added","value":true},{"key":"default","type":"added","value":["value1","value2"]},{"key":"id","type":"added","value":null},{"key":"key2","type":"added","value":"value2"},{"key":"numbers1","type":"added","value":[1,2,3,4]},{"key":"numbers2","type":"added","value":[22,33,44,55]},{"key":"numbers4","type":"added","value":[4,5,6]},{"key":"obj1","type":"added","value":{"nestedKey":"value","isNested":true}},{"key":"setting1","type":"added","value":"Another value"},{"key":"setting2","type":"added","value":300},{"key":"setting3","type":"added","value":"none"}]

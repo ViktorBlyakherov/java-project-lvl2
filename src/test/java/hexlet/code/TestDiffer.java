@@ -2,11 +2,9 @@ package hexlet.code;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class TestDiffer {
@@ -51,7 +49,7 @@ public final class TestDiffer {
                 "./src/test/resources/empty2.yml", "plain"), "");
 
         assertEquals(new Differ().generate("./src/test/resources/empty1.json",
-                "./src/test/resources/empty2.json", "json"), "");
+                "./src/test/resources/empty2.json", "json"), "[]");
 
     }
 
