@@ -41,7 +41,6 @@ public class MapDifference {
             resultList.add(tmpMap);
         }
 
-        resultList.sort((v1, v2) -> v1.get("key").toString().compareTo((v2.get("key").toString())));
         return resultList;
     }
 

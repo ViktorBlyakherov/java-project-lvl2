@@ -21,17 +21,8 @@ public class Differ {
 
      */
 
-    private static String getFileFormat(String filepath1, String filepath2) {
-
-        if (filepath1.endsWith(".json") && filepath2.endsWith(".json")) {
-            return "json";
-        } else if (filepath1.endsWith(".yml") && filepath2.endsWith(".yml")) {
-            return "yml";
-        } else {
-            return "Unknown format";
-
-        }
-
+    private static String getFileFormat(String filepath) {
+        return filepath.substring(filepath.lastIndexOf(".") + 1);
     }
 
 
@@ -39,10 +30,11 @@ public class Differ {
         Map<String, Object> firstMap;
         Map<String, Object> secondMap;
 
-        String formatFiles = getFileFormat(filepath1, filepath2);
+        String formatFirstFile = getFileFormat(filepath1);
+        String formatSecondFile = getFileFormat(filepath2);
 
-        firstMap = Parser.parseFiles(filepath1, formatFiles);
-        secondMap = Parser.parseFiles(filepath2, formatFiles);
+        firstMap = Parser.parseFiles(filepath1, formatFirstFile);
+        secondMap = Parser.parseFiles(filepath2, formatSecondFile);
 
         return Formatter.formatResult(getDifference(firstMap, secondMap), outputFormat);
     }

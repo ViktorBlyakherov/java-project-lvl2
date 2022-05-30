@@ -4,32 +4,39 @@ import java.util.List;
 import java.util.Map;
 
 public class StylishFormat {
+
+    private static String stringify(Object obj) {
+        if (obj == null) {
+            return "null";
+        } else {
+            return obj.toString();
+        }
+    }
     public static String formatOutput(List<Map<String, Object>> resultList) {
         String resultString = "{\n";
         for (Map<String, Object> tmpMap : resultList) {
-            String value;
-/*
-Перед switch получать значение нельзя, так как разные ключи для разных типов данных.
- */
 
-            switch (tmpMap.get("type").toString()) {
+            String key = tmpMap.get("key").toString();
+            String type = tmpMap.get("type").toString();
+            String formattedValue = stringify(tmpMap.get("value"));
+            String formattedValue1 = stringify(tmpMap.get("value1"));
+            String formattedValue2 = stringify(tmpMap.get("value2"));
+
+
+
+            switch (type) {
                 case "unchanged":
-                    value = tmpMap.get("value") == null ? "null" : tmpMap.get("value").toString();
-                    resultString = resultString + "    " + tmpMap.get("key") + ": " + value + "\n";
+                    resultString = resultString + "    " + key + ": " + formattedValue + "\n";
                     break;
                 case "added":
-                    value = tmpMap.get("value") == null ? "null" : tmpMap.get("value").toString();
-                    resultString = resultString + "  + " + tmpMap.get("key") + ": " + value + "\n";
+                    resultString = resultString + "  + " + key + ": " + formattedValue + "\n";
                     break;
                 case "changed":
-                    value = tmpMap.get("value1") == null ? "null" : tmpMap.get("value1").toString();
-                    resultString = resultString + "  - " + tmpMap.get("key") + ": " + value + "\n";
-                    value = tmpMap.get("value2") == null ? "null" : tmpMap.get("value2").toString();
-                    resultString = resultString + "  + " + tmpMap.get("key") + ": " + value + "\n";
+                    resultString = resultString + "  - " + key + ": " + formattedValue1 + "\n";
+                    resultString = resultString + "  + " + key + ": " + formattedValue2 + "\n";
                     break;
                 case "deleted":
-                    value = tmpMap.get("value") == null ? "null" : tmpMap.get("value").toString();
-                    resultString = resultString + "  - " + tmpMap.get("key") + ": " + value + "\n";
+                    resultString = resultString + "  - " + key + ": " + formattedValue + "\n";
                     break;
                 default:
                     break;
