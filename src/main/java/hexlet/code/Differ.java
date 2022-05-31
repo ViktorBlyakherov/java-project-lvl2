@@ -12,29 +12,21 @@ public class Differ {
         return generate(filepath1, filepath2, "stylish");
     }
 
-    /*
-    Ты пишешь:
-    Данный метод лучше реализовать как парсер расширения, просто вырезать расширение из имени файла и возвращать.
-
-    Ну так я фактически и смотрю на расширение файла и возвращаю его, только без точки. Не понял твою мысль. Поясни,
-    пожалуйста, подробнее что не так.
-
-     */
-
     private static String getFileFormat(String filepath) {
-        return filepath.substring(filepath.lastIndexOf(".") + 1);
+        if (filepath.indexOf(".") >= 0) {
+            return filepath.substring(filepath.lastIndexOf(".") + 1);
+        } else {
+            return "";
+        }
     }
 
 
     public static String generate(String filepath1, String filepath2, String outputFormat) throws IOException {
-        Map<String, Object> firstMap;
-        Map<String, Object> secondMap;
-
         String formatFirstFile = getFileFormat(filepath1);
         String formatSecondFile = getFileFormat(filepath2);
 
-        firstMap = Parser.parseFiles(filepath1, formatFirstFile);
-        secondMap = Parser.parseFiles(filepath2, formatSecondFile);
+        Map<String, Object> firstMap = Parser.parseFiles(filepath1, formatFirstFile);
+        Map<String, Object> secondMap = Parser.parseFiles(filepath2, formatSecondFile);
 
         return Formatter.formatResult(getDifference(firstMap, secondMap), outputFormat);
     }

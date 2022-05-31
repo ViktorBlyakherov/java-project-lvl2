@@ -22,8 +22,6 @@ public class StylishFormat {
             String formattedValue1 = stringify(tmpMap.get("value1"));
             String formattedValue2 = stringify(tmpMap.get("value2"));
 
-
-
             switch (type) {
                 case "unchanged":
                     resultString = resultString + "    " + key + ": " + formattedValue + "\n";

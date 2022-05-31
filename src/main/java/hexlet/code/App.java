@@ -21,9 +21,7 @@ public class App implements Callable<Integer> {
 
     @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
     private boolean isVersionRequested;
-/*
-  Эти две переменные удалить нельзя. Picocli требует, чтобы каждая опция присваивалась какой-то переменной.
-*/
+
     @Option(names = {"-f", "--format"}, defaultValue = "stylish", description = "output format [default: stylish]")
     private String format;
 
