@@ -22,15 +22,15 @@ public class Differ {
         }
     }
 
+    private static Map<String, Object> getData(String filePath) throws IOException {
+        String formatFile = getFileFormat(filePath);
+        String fileData = Files.readString(Paths.get(filePath));
+        return Parser.parseFiles(fileData, formatFile);
+    }
 
     public static String generate(String filepath1, String filepath2, String outputFormat) throws IOException {
-        String formatFile = getFileFormat(filepath1);
-        String fileData = Files.readString(Paths.get(filepath1));
-        Map<String, Object> firstMap = Parser.parseFiles(fileData, formatFile);
-
-        formatFile = getFileFormat(filepath2);
-        fileData = Files.readString(Paths.get(filepath2));
-        Map<String, Object> secondMap = Parser.parseFiles(fileData, formatFile);
+        Map<String, Object> firstMap = getData(filepath1);
+        Map<String, Object> secondMap = getData(filepath2);
 
         return Formatter.formatResult(getDifference(firstMap, secondMap), outputFormat);
     }
