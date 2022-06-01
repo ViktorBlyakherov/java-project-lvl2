@@ -10,8 +10,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - run: ./gradlew checkstyleMain
-      - run: ./gradlew test
       - run: ./gradlew clean build
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
