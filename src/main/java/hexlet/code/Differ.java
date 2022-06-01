@@ -1,6 +1,8 @@
 package hexlet.code;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 
 import static hexlet.code.MapDifference.getDifference;
@@ -22,11 +24,13 @@ public class Differ {
 
 
     public static String generate(String filepath1, String filepath2, String outputFormat) throws IOException {
-        String formatFirstFile = getFileFormat(filepath1);
-        String formatSecondFile = getFileFormat(filepath2);
+        String formatFile = getFileFormat(filepath1);
+        String fileData = Files.readString(Paths.get(filepath1));
+        Map<String, Object> firstMap = Parser.parseFiles(fileData, formatFile);
 
-        Map<String, Object> firstMap = Parser.parseFiles(filepath1, formatFirstFile);
-        Map<String, Object> secondMap = Parser.parseFiles(filepath2, formatSecondFile);
+        formatFile = getFileFormat(filepath2);
+        fileData = Files.readString(Paths.get(filepath2));
+        Map<String, Object> secondMap = Parser.parseFiles(fileData, formatFile);
 
         return Formatter.formatResult(getDifference(firstMap, secondMap), outputFormat);
     }

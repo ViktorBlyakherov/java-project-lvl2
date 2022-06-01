@@ -1,6 +1,6 @@
 package hexlet.code;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,19 +8,19 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class TestDiffer {
-    private String expectedNormalStylish;
-    private String expectedFirstEmptyStylish;
-    private String expectedSecondEmptyStylish;
-    private String expectedNormalPlain;
-    private String expectedFirstEmptyPlain;
-    private String expectedSecondEmptyPlain;
-    private String expectedNormalJson;
-    private String expectedFirstEmptyJson;
-    private String expectedSecondEmptyJson;
+    private static String expectedNormalStylish;
+    private static String expectedFirstEmptyStylish;
+    private static String expectedSecondEmptyStylish;
+    private static String expectedNormalPlain;
+    private static String expectedFirstEmptyPlain;
+    private static String expectedSecondEmptyPlain;
+    private static String expectedNormalJson;
+    private static String expectedFirstEmptyJson;
+    private static String expectedSecondEmptyJson;
 
 
-    @BeforeEach
-    public void prepareData() throws IOException {
+    @BeforeAll
+    public static void prepareData() throws IOException {
         expectedNormalJson = Files.readString(Paths.get("./src/test/resources/normaljson.txt"));
 
         expectedFirstEmptyJson = Files.readString(Paths.get("./src/test/resources/firstemptyjson.txt"));
@@ -58,6 +58,9 @@ public final class TestDiffer {
     public void testNormalJson() throws IOException {
         assertEquals(new Differ().generate("./src/test/resources/normal1.json",
                 "./src/test/resources/normal2.json", "stylish"), expectedNormalStylish);
+
+        assertEquals(new Differ().generate("./src/test/resources/normal1.json",
+                "./src/test/resources/normal2.json"), expectedNormalStylish);
 
         assertEquals(new Differ().generate("./src/test/resources/normal1.json",
                 "./src/test/resources/normal2.json", "plain"), expectedNormalPlain);
